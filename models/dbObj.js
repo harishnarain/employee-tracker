@@ -15,6 +15,12 @@ const runQuery = async (queryType, objType, prop) => {
       case "DELETE":
         return await db.query(`DELETE FROM ${objType} WHERE ?`, prop);
         break;
+      case "UPDATE":
+        return await db.query(`UPDATE ${objType} SET ? WHERE ?`, [
+          prop.update,
+          prop.id,
+        ]);
+        break;
     }
   } catch (err) {
     console.log(err);
@@ -39,9 +45,14 @@ const deleteObject = async (objType, id) => {
   return await runQuery("DELETE", objType, id);
 };
 
+const updateObject = async (objType, obj) => {
+  return await runQuery("UPDATE", objType, obj);
+};
+
 module.exports = {
   getObjects,
   getObjectById,
   addObject,
   deleteObject,
+  updateObject,
 };
