@@ -1,19 +1,12 @@
-const {
-  getEmployeeAll,
-  getEmployeeById,
-  getEmployeeByManager,
-  addEmployee,
-  deleteEmployee,
-  updateEmployeeRole,
-  updateEmployeeManager,
-} = require("./models/employees");
+// Dependencies
+const showSplash = require("./views/splash");
 
-// Testing
-const emp = {
-  first_name: "Harish",
-  last_name: "Narain",
-  role_id: 6,
-  manager_id: 5,
+// Globals
+
+// Methods
+const init = async () => {
+  showSplash();
 };
 
-getEmployeeByManager(1).then((res) => console.log(res));
+// Init
+init();
