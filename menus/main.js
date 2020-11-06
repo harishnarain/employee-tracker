@@ -1,4 +1,8 @@
-const { prompt, createPromptModule } = require("inquirer");
+const { prompt } = require("inquirer");
+const employeeMenu = require("./employees");
+const roleMenu = require("./roles");
+const departmentMenu = require("./departments");
+const db = require("../util/db");
 
 const show = () => {
   prompt([
@@ -19,20 +23,27 @@ const show = () => {
           name: "Department Management",
           value: "department",
         },
+        {
+          name: "Exit",
+          value: "exit",
+        },
       ],
     },
-  ]).then((ans) => {
+  ]).then(async (ans) => {
     switch (ans.managementCategory) {
       case "employee":
-        console.log("Employee management selected");
+        await employeeMenu.show();
         break;
       case "role":
-        console.log("Role management selected");
+        await roleMenu.show();
         break;
       case "department":
-        console.log("Department management selected");
+        await departmentMenu.show();
         break;
+      default:
+        return db.close();
     }
+    return show();
   });
 };
 

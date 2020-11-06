@@ -24,8 +24,6 @@ const runQuery = async (queryType, objType, prop) => {
     }
   } catch (err) {
     console.log(err);
-  } finally {
-    db.close();
   }
 };
 

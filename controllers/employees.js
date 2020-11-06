@@ -11,36 +11,53 @@ const {
 // Globals
 
 // Methods
-const showAll = (filter) => {
+const showAll = async (filter) => {
   // filter should be an object defined as {managerId: 1, department: 1}
-  getEmployeeAll(filter).then((res) => {
+  await getEmployeeAll(filter).then((res) => {
     console.table(res);
   });
 };
 
-const add = (employeeObj) => {
-  addEmployee(employeeObj).then((res) => {
+const getAll = async () => {
+  return await getEmployeeAll().then((res) => res);
+};
+
+const getManagers = async () => {
+  const filter = { managerId: "" };
+  return await getEmployeeAll(filter).then((res) => res);
+};
+
+const add = async (employeeObj) => {
+  await addEmployee(employeeObj).then((res) => {
     console.log(`${res.affectedRows} row(s) added.`);
   });
 };
 
-const remove = (id) => {
-  deleteEmployee(id).then((res) => {
+const remove = async (id) => {
+  await deleteEmployee(id).then((res) => {
     console.log(`${res.affectedRows} row(s) removed.`);
   });
 };
 
-const updateRole = (id, roleId) => {
-  updateEmployeeRole(id, roleId).then((res) => {
+const updateRole = async (id, roleId) => {
+  await updateEmployeeRole(id, roleId).then((res) => {
     console.log(`${res.affectedRows} row(s) updated.`);
   });
 };
 
-const updateManager = (id, managerId) => {
-  updateEmployeeManager(id, managerId).then((res) => {
+const updateManager = async (id, managerId) => {
+  await updateEmployeeManager(id, managerId).then((res) => {
     console.log(`${res.affectedRows} row(s) updated.`);
   });
 };
 
 // Exports
-module.exports = { showAll, add, updateRole, updateManager, remove };
+module.exports = {
+  showAll,
+  getManagers,
+  getAll,
+  add,
+  updateRole,
+  updateManager,
+  remove,
+};

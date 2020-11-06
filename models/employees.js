@@ -24,6 +24,8 @@ const getEmployeeAll = async (filter) => {
       query += `WHERE employees.manager_id = "${filter.managerId}"`;
     } else if (filter.departmentId) {
       query += `WHERE roles.department_id = "${filter.departmentId}"`;
+    } else if (filter.managerId === "") {
+      query += "WHERE employees.manager_id IS NULL";
     }
   }
 
@@ -33,8 +35,6 @@ const getEmployeeAll = async (filter) => {
     return await db.query(query);
   } catch (err) {
     console.error(err);
-  } finally {
-    db.close();
   }
 };
 
