@@ -1,6 +1,6 @@
 // Dependencies
 const showSplash = require("./controllers/splash");
-const employees = require("./controllers/employees");
+const mainMenu = require("./menus/main");
 
 // Globals
 
@@ -8,7 +8,7 @@ const employees = require("./controllers/employees");
 const init = async () => {
   showSplash();
 
-  employees.remove(9);
+  mainMenu.show();
 };
 
 // Init
