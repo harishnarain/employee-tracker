@@ -1,11 +1,14 @@
 // Dependencies
-const showSplash = require("./views/splash");
+const showSplash = require("./controllers/splash");
+const employees = require("./controllers/employees");
 
 // Globals
 
 // Methods
 const init = async () => {
   showSplash();
+
+  employees.remove(9);
 };
 
 // Init

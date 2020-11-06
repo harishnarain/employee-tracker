@@ -1,23 +1,46 @@
+const db = require("../util/db");
 const {
-  getObjects,
   getObjectById,
   addObject,
   deleteObject,
   updateObject,
 } = require("./dbObj");
 
-const getEmployeeAll = async () => {
-  return await getObjects("employees").then((res) => res);
+const getEmployeeAll = async (filter) => {
+  let query = `SELECT 
+                employees.id, 
+                employees.first_name, 
+                employees.last_name,
+                title,
+                departments.name AS department,
+                salary,
+                CONCAT_WS(' ', managers.first_name, managers.last_name) AS manager
+              FROM employees employees
+              INNER JOIN roles ON (employees.role_id = roles.id)
+              INNER JOIN departments ON (roles.department_id = departments.id)
+              LEFT JOIN employees managers ON managers.id = employees.manager_id\n`;
+  if (filter) {
+    if (filter.managerId) {
+      query += `WHERE employees.manager_id = "${filter.managerId}"`;
+    } else if (filter.departmentId) {
+      query += `WHERE roles.department_id = "${filter.departmentId}"`;
+    }
+  }
+
+  query += ";";
+
+  try {
+    return await db.query(query);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    db.close();
+  }
 };
 
 const getEmployeeById = async (id) => {
   const idObj = { id: id };
   return await getObjectById("employees", idObj);
-};
-
-const getEmployeeByManager = async (managerId) => {
-  const managerIdObj = { manager_id: managerId };
-  return await getObjectById("employees", managerIdObj);
 };
 
 const addEmployee = async (employee) => {
@@ -56,7 +79,6 @@ const updateEmployeeManager = async (id, managerId) => {
 module.exports = {
   getEmployeeAll,
   getEmployeeById,
-  getEmployeeByManager,
   addEmployee,
   deleteEmployee,
   updateEmployeeRole,
