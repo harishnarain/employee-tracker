@@ -59,15 +59,19 @@ This project uses the MIT license
 Pull requests are welcome
 ## Screenshots
 **View operations**
+
 [![View operations](http://img.youtube.com/vi/O694BQXE5qo/3.jpg)](https://youtu.be/O694BQXE5qo)
 
 **Add operations**
+
 [![Add operations](http://img.youtube.com/vi/cUJlylX5iYU/2.jpg)](https://youtu.be/cUJlylX5iYU)
 
 **Update operations**
+
 [![Update operations](http://img.youtube.com/vi/GgWYEKWmW-A/3.jpg)](https://youtu.be/GgWYEKWmW-A)
 
 **Delete operations**
+
 [![Delete operations](http://img.youtube.com/vi/gMf1Vh63vDU/3.jpg)](https://youtu.be/gMf1Vh63vDU)
 
 ## Questions
