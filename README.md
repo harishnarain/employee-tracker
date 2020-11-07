@@ -26,15 +26,15 @@ Developers are often tasked with creating interfaces that make it easy for non-d
    ```
    npm install --save
    ```
-3. Create the **employee_db** database running the script `0_createdb.sql` in MySQL
-4. Create the **departments** table running the script `1_departments.sql` in MySQL
-5. Create the **roles** table running the script `2_roles.sql` in MySQL
-6. Create the **employees** table running the script `3_employees.sql` in MySQL
-7. Seed mock data running the script `4_seed.sql` in MySQL
+3. Create the **employee_db** database running the script `sql-scripts/0_createdb.sql` in MySQL
+4. Create the **departments** table running the script `sql-scripts/1_departments.sql` in MySQL
+5. Create the **roles** table running the script `sql-scripts/2_roles.sql` in MySQL
+6. Create the **employees** table running the script `sql-scripts/3_employees.sql` in MySQL
+7. Seed mock data running the script `sql-scripts/4_seed.sql` in MySQL
 
 ## Usage
-1. Run `npm start` to start the applications
-2. Choose Employee, Role or Department management categories and use the submenus to run appropriate operations
+1. Run `npm start` to start the application
+2. Choose **Employee**, **Role** or **Department** management categories and use the submenus to run the appropriate operations
 ## Features
 * Display all employees
 * Display employees by department
