@@ -1,3 +1,4 @@
+const db = require("../util/db");
 const {
   getObjects,
   getObjectById,
@@ -6,7 +7,20 @@ const {
 } = require("./dbObj");
 
 const getRoleAll = async () => {
-  return await getObjects("roles").then((res) => res);
+  //return await getObjects("roles").then((res) => res);
+  let query = `SELECT
+                roles.id,
+                roles.title,
+                roles.salary,
+                departments.name AS department
+              FROM roles roles
+              INNER JOIN departments ON (roles.department_id = departments.id)`;
+  query += ";";
+  try {
+    return await db.query(query);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const getRoleById = async (id) => {

@@ -5,6 +5,7 @@ const {
   addDepartment,
   deleteDepartment,
 } = require("../models/departments");
+const employees = require("./employees");
 
 // Methods
 const showAll = async () => {
@@ -15,6 +16,25 @@ const showAll = async () => {
 
 const getAll = async () => {
   return await getDepartmentAll().then((res) => res);
+};
+
+const showUtilizedBudget = async (id) => {
+  const filterObj = {
+    departmentId: id,
+  };
+  await employees.getAll(filterObj).then((res) => {
+    let budget = 0;
+    res.forEach((el) => {
+      budget += el.salary;
+    });
+    const currencyOptions = { style: "currency", currency: "USD" };
+    console.log(
+      `The total utilized budget is: ${new Intl.NumberFormat(
+        "en-US",
+        currencyOptions
+      ).format(budget)}`
+    );
+  });
 };
 
 const add = async (name) => {
@@ -33,6 +53,7 @@ const remove = async (id) => {
 module.exports = {
   showAll,
   getAll,
+  showUtilizedBudget,
   add,
   remove,
 };

@@ -116,7 +116,7 @@ const showEmployeesByManager = async () => {
   });
 };
 
-const addEmployee = async () => {
+const addEmployee = async (empType) => {
   const empObject = {};
   await prompt([
     {
@@ -133,17 +133,22 @@ const addEmployee = async () => {
     empObject.first_name = ans.firstName;
     empObject.last_name = ans.lastName;
   });
-  empObject.manager_id = await promptManagers();
+
+  if (!empType) {
+    empObject.manager_id = await promptManagers();
+  }
   empObject.role_id = await promptRole();
   return await employees.add(empObject);
 };
 
-const updateRole = async (employeeId) => {
+const updateRole = async () => {
+  const employeeId = await promptEmployee();
   const roleId = await promptRole();
   employees.updateRole(employeeId, roleId);
 };
 
-const updateManager = async (employeeId) => {
+const updateManager = async () => {
+  const employeeId = await promptEmployee();
   const managerId = await promptManagers();
   employees.updateManager(employeeId, managerId);
 };
@@ -163,15 +168,20 @@ const updateEmployee = async () => {
           name: "Update employee's manager",
           value: "updateManager",
         },
+        {
+          name: "Cancel",
+          value: "cancel",
+        },
       ],
     },
   ]).then(async (ans) => {
-    const employeeId = await promptEmployee();
     switch (ans.updateOption) {
       case "updateRole":
-        return await updateRole(employeeId);
+        return await updateRole();
       case "updateManager":
-        return await updateManager(employeeId);
+        return await updateManager();
+      default:
+        break;
     }
   });
 };
@@ -200,6 +210,10 @@ const show = async () => {
           value: "addEmployee",
         },
         {
+          name: "Add Manager",
+          value: "addManager",
+        },
+        {
           name: "Delete employee",
           value: "deleteEmployee",
         },
@@ -223,6 +237,8 @@ const show = async () => {
         return await showEmployeesByManager();
       case "addEmployee":
         return await addEmployee();
+      case "addManager":
+        return await addEmployee("manager");
       case "deleteEmployee":
         return await removeEmployee();
       case "updateEmployee":

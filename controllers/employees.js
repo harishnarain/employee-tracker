@@ -12,14 +12,15 @@ const {
 
 // Methods
 const showAll = async (filter) => {
-  // filter should be an object defined as {managerId: 1, department: 1}
+  // filter should be an object defined as {managerId: 1, departmentId: 1}
   await getEmployeeAll(filter).then((res) => {
     console.table(res);
   });
 };
 
-const getAll = async () => {
-  return await getEmployeeAll().then((res) => res);
+const getAll = async (filter) => {
+  // filter should be an object defined as {managerId: 1, departmentId: 1}
+  return await getEmployeeAll(filter).then((res) => res);
 };
 
 const getManagers = async () => {

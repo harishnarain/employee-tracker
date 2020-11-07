@@ -25,6 +25,11 @@ const promptDepartment = async () => {
   });
 };
 
+const displayBudget = async () => {
+  const departmentId = await promptDepartment();
+  return await departments.showUtilizedBudget(departmentId);
+};
+
 const addDepartment = async () => {
   return await prompt([
     {
@@ -54,6 +59,10 @@ const show = async () => {
           value: "displayDepartments",
         },
         {
+          name: "Display utilized budget",
+          value: "displayBudget",
+        },
+        {
           name: "Add department",
           value: "addDepartment",
         },
@@ -71,6 +80,8 @@ const show = async () => {
     switch (ans.departmentOption) {
       case "displayDepartments":
         return departments.showAll();
+      case "displayBudget":
+        return await displayBudget();
       case "addDepartment":
         return await addDepartment();
       case "deleteDepartment":
